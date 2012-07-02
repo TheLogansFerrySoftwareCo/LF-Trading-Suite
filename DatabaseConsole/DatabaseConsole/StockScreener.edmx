@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="StockScreenerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="StockScreenerModelStoreContainer">
+          <EntitySet Name="Exchanges" EntityType="StockScreenerModel.Store.Exchanges" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="StockDailies" EntityType="StockScreenerModel.Store.StockDailies" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Stocks" EntityType="StockScreenerModel.Store.Stocks" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Watchlists" EntityType="StockScreenerModel.Store.Watchlists" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="WatchListsToTickers" EntityType="StockScreenerModel.Store.WatchListsToTickers" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_StockDailies_Stocks" Association="StockScreenerModel.Store.FK_StockDailies_Stocks">
+            <End Role="Stocks" EntitySet="Stocks" />
+            <End Role="StockDailies" EntitySet="StockDailies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stocks_Exchanges" Association="StockScreenerModel.Store.FK_Stocks_Exchanges">
+            <End Role="Exchanges" EntitySet="Exchanges" />
+            <End Role="Stocks" EntitySet="Stocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WatchListsToTickers_Stocks" Association="StockScreenerModel.Store.FK_WatchListsToTickers_Stocks">
+            <End Role="Stocks" EntitySet="Stocks" />
+            <End Role="WatchListsToTickers" EntitySet="WatchListsToTickers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WatchListsToTickers_Watchlists" Association="StockScreenerModel.Store.FK_WatchListsToTickers_Watchlists">
+            <End Role="Watchlists" EntitySet="Watchlists" />
+            <End Role="WatchListsToTickers" EntitySet="WatchListsToTickers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Exchanges">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="StockDailies">
+          <Key>
+            <PropertyRef Name="Exchange" />
+            <PropertyRef Name="Ticker" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="Exchange" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Ticker" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="OpenPrice" Type="float" Nullable="false" />
+          <Property Name="ClosePrice" Type="float" Nullable="false" />
+          <Property Name="HighPrice" Type="float" Nullable="false" />
+          <Property Name="LowPrice" Type="float" Nullable="false" />
+          <Property Name="Volume" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stocks">
+          <Key>
+            <PropertyRef Name="Exchange" />
+            <PropertyRef Name="Ticker" />
+          </Key>
+          <Property Name="Exchange" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Ticker" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="CompanyName" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Watchlists">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WatchListsToTickers">
+          <Key>
+            <PropertyRef Name="WatchListId" />
+            <PropertyRef Name="Ticker" />
+            <PropertyRef Name="Exchange" />
+          </Key>
+          <Property Name="WatchListId" Type="int" Nullable="false" />
+          <Property Name="Ticker" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Exchange" Type="varchar" Nullable="false" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_StockDailies_Stocks">
+          <End Role="Stocks" Type="StockScreenerModel.Store.Stocks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="StockDailies" Type="StockScreenerModel.Store.StockDailies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stocks">
+              <PropertyRef Name="Ticker" />
+              <PropertyRef Name="Exchange" />
+            </Principal>
+            <Dependent Role="StockDailies">
+              <PropertyRef Name="Ticker" />
+              <PropertyRef Name="Exchange" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stocks_Exchanges">
+          <End Role="Exchanges" Type="StockScreenerModel.Store.Exchanges" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Stocks" Type="StockScreenerModel.Store.Stocks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exchanges">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Stocks">
+              <PropertyRef Name="Exchange" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WatchListsToTickers_Stocks">
+          <End Role="Stocks" Type="StockScreenerModel.Store.Stocks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WatchListsToTickers" Type="StockScreenerModel.Store.WatchListsToTickers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stocks">
+              <PropertyRef Name="Ticker" />
+              <PropertyRef Name="Exchange" />
+            </Principal>
+            <Dependent Role="WatchListsToTickers">
+              <PropertyRef Name="Ticker" />
+              <PropertyRef Name="Exchange" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WatchListsToTickers_Watchlists">
+          <End Role="Watchlists" Type="StockScreenerModel.Store.Watchlists" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="WatchListsToTickers" Type="StockScreenerModel.Store.WatchListsToTickers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Watchlists">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="WatchListsToTickers">
+              <PropertyRef Name="WatchListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StockScreenerModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="StockScreenerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Exchanges" EntityType="StockScreenerModel.Exchanx" />
+          <EntitySet Name="Stocks" EntityType="StockScreenerModel.Stock" />
+          <EntitySet Name="Watchlists" EntityType="StockScreenerModel.Watchlist" />
+          <AssociationSet Name="FK_Stocks_Exchanges" Association="StockScreenerModel.FK_Stocks_Exchanges">
+            <End Role="Exchanx" EntitySet="Exchanges" />
+            <End Role="Stock" EntitySet="Stocks" />
+          </AssociationSet>
+          <AssociationSet Name="WatchListsToTickers" Association="StockScreenerModel.WatchListsToTickers">
+            <End Role="Stock" EntitySet="Stocks" />
+            <End Role="Watchlist" EntitySet="Watchlists" />
+          </AssociationSet>
+          <EntitySet Name="StockDailies" EntityType="StockScreenerModel.StockDaily" />
+          <AssociationSet Name="FK_StockDailies_Stocks" Association="StockScreenerModel.FK_StockDailies_Stocks">
+            <End Role="Stock" EntitySet="Stocks" />
+            <End Role="StockDaily" EntitySet="StockDailies" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Exchanx">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="String" Name="ID" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Stocks" Relationship="StockScreenerModel.FK_Stocks_Exchanges" FromRole="Exchanx" ToRole="Stock" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="Exchange" />
+            <PropertyRef Name="Ticker" />
+          </Key>
+          <Property Type="String" Name="Exchange" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ticker" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Exchanx" Relationship="StockScreenerModel.FK_Stocks_Exchanges" FromRole="Stock" ToRole="Exchanx" />
+          <NavigationProperty Name="Watchlists" Relationship="StockScreenerModel.WatchListsToTickers" FromRole="Stock" ToRole="Watchlist" />
+          <NavigationProperty Name="StockDailies" Relationship="StockScreenerModel.FK_StockDailies_Stocks" FromRole="Stock" ToRole="StockDaily" />
+        </EntityType>
+        <EntityType Name="Watchlist">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Stocks" Relationship="StockScreenerModel.WatchListsToTickers" FromRole="Watchlist" ToRole="Stock" />
+        </EntityType>
+        <Association Name="FK_Stocks_Exchanges">
+          <End Type="StockScreenerModel.Exchanx" Role="Exchanx" Multiplicity="1" />
+          <End Type="StockScreenerModel.Stock" Role="Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exchanx">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="Exchange" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="WatchListsToTickers">
+          <End Type="StockScreenerModel.Stock" Role="Stock" Multiplicity="*" />
+          <End Type="StockScreenerModel.Watchlist" Role="Watchlist" Multiplicity="*" />
+        </Association>
+        <EntityType Name="StockDaily">
+          <Key>
+            <PropertyRef Name="Exchange" />
+            <PropertyRef Name="Ticker" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Type="String" Name="Exchange" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ticker" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="Double" Name="OpenPrice" Nullable="false" />
+          <Property Type="Double" Name="ClosePrice" Nullable="false" />
+          <Property Type="Double" Name="HighPrice" Nullable="false" />
+          <Property Type="Double" Name="LowPrice" Nullable="false" />
+          <Property Type="Int32" Name="Volume" Nullable="false" />
+          <NavigationProperty Name="Stock" Relationship="StockScreenerModel.FK_StockDailies_Stocks" FromRole="StockDaily" ToRole="Stock" />
+        </EntityType>
+        <Association Name="FK_StockDailies_Stocks">
+          <End Type="StockScreenerModel.Stock" Role="Stock" Multiplicity="1" />
+          <End Type="StockScreenerModel.StockDaily" Role="StockDaily" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="Ticker" />
+              <PropertyRef Name="Exchange" />
+            </Principal>
+            <Dependent Role="StockDaily">
+              <PropertyRef Name="Ticker" />
+              <PropertyRef Name="Exchange" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="StockScreenerModelStoreContainer" CdmEntityContainer="StockScreenerEntities">
+          <EntitySetMapping Name="Exchanges">
+            <EntityTypeMapping TypeName="StockScreenerModel.Exchanx">
+              <MappingFragment StoreEntitySet="Exchanges">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stocks">
+            <EntityTypeMapping TypeName="StockScreenerModel.Stock">
+              <MappingFragment StoreEntitySet="Stocks">
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="Ticker" ColumnName="Ticker" />
+                <ScalarProperty Name="Exchange" ColumnName="Exchange" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Watchlists">
+            <EntityTypeMapping TypeName="StockScreenerModel.Watchlist">
+              <MappingFragment StoreEntitySet="Watchlists">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="WatchListsToTickers" TypeName="StockScreenerModel.WatchListsToTickers" StoreEntitySet="WatchListsToTickers">
+            <EndProperty Name="Watchlist">
+              <ScalarProperty Name="ID" ColumnName="WatchListId" />
+            </EndProperty>
+            <EndProperty Name="Stock">
+              <ScalarProperty Name="Ticker" ColumnName="Ticker" />
+              <ScalarProperty Name="Exchange" ColumnName="Exchange" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="StockDailies">
+            <EntityTypeMapping TypeName="StockScreenerModel.StockDaily">
+              <MappingFragment StoreEntitySet="StockDailies">
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+                <ScalarProperty Name="LowPrice" ColumnName="LowPrice" />
+                <ScalarProperty Name="HighPrice" ColumnName="HighPrice" />
+                <ScalarProperty Name="ClosePrice" ColumnName="ClosePrice" />
+                <ScalarProperty Name="OpenPrice" ColumnName="OpenPrice" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Ticker" ColumnName="Ticker" />
+                <ScalarProperty Name="Exchange" ColumnName="Exchange" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="StockScreener">
+        <EntityTypeShape EntityType="StockScreenerModel.Exchanx" Width="1.5" PointX="0.75" PointY="1.125" Height="1.5956835937499994" />
+        <EntityTypeShape EntityType="StockScreenerModel.Stock" Width="1.5" PointX="3" PointY="0.875" Height="1.9802864583333317" />
+        <EntityTypeShape EntityType="StockScreenerModel.Watchlist" Width="1.5" PointX="5.25" PointY="1.125" Height="1.5956835937499996" />
+        <AssociationConnector Association="StockScreenerModel.FK_Stocks_Exchanges" >
+          <ConnectorPoint PointX="2.25" PointY="1.9228417968749998" />
+          <ConnectorPoint PointX="3" PointY="1.9228417968749998" />
+        </AssociationConnector>
+        <AssociationConnector Association="StockScreenerModel.WatchListsToTickers" >
+          <ConnectorPoint PointX="4.5" PointY="1.9228417968749998" />
+          <ConnectorPoint PointX="5.25" PointY="1.9228417968749998" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="StockScreenerModel.StockDaily" Width="1.5" PointX="5.25" PointY="4.25" Height="2.7494921875000031" />
+        <AssociationConnector Association="StockScreenerModel.FK_StockDailies_Stocks" >
+          <ConnectorPoint PointX="3.75" PointY="3.047587890625" />
+          <ConnectorPoint PointX="3.75" PointY="5.6247460937500016" />
+          <ConnectorPoint PointX="5.25" PointY="5.6247460937500016" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
