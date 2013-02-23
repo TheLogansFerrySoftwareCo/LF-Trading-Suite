@@ -98,7 +98,7 @@ namespace LogansFerry.BackTesterPrototype
         /// This so-called Plus Directional Movement (+DM) then equals the current high minus the prior high, provided it is positive. 
         /// A negative value would simply be entered as zero.
         /// </remarks>
-        private double GetPlusDmForToday()
+        private float GetPlusDmForToday()
         {
             var upwardMovement = this.Today.High - this.Yesterday.High;
             var downwardMovement = this.Yesterday.Low - this.Today.Low;
@@ -109,7 +109,7 @@ namespace LogansFerry.BackTesterPrototype
                 return upwardMovement;
             }
 
-            return 0.0d;
+            return 0.0f;
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace LogansFerry.BackTesterPrototype
         /// This so-called Minus Directional Movement (-DM) equals the prior low minus the current low, provided it is positive. 
         /// A negative value would simply be entered as zero.
         /// </remarks>
-        private double GetMinusDmForToday()
+        private float GetMinusDmForToday()
         {
             var upwardMovement = this.Today.High - this.Yesterday.High;
             var downwardMovement = this.Yesterday.Low - this.Today.Low;
@@ -135,7 +135,7 @@ namespace LogansFerry.BackTesterPrototype
                 return downwardMovement;
             }
 
-            return 0.0d;
+            return 0.0f;
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace LogansFerry.BackTesterPrototype
         ///    - Absolute value of the most recent period's high minus the previous close
         ///    - Absolute value of the most recent period's low minus the previous close
         /// </remarks>
-        private double GetTrueRangeForToday()
+        private float GetTrueRangeForToday()
         {
             return Math.Max(
                     this.Today.High - this.Today.Low,
@@ -166,17 +166,17 @@ namespace LogansFerry.BackTesterPrototype
         /// <returns>
         /// The +DM14 value.
         /// </returns>
-        private double GetPlusDm14ForToday()
+        private float GetPlusDm14ForToday()
         {
             if (this.currentIndex < 14)
             {
                 // Not enough data.
-                return 0.0d;
+                return 0.0f;
             }
 
             if (this.currentIndex == 14)
             {
-                var average = 0.0d;
+                var average = 0.0f;
                 for (var index = 1; index <= 14; index++)
                 {
                     average += this.priceHistory[index].PlusDm;
@@ -185,7 +185,7 @@ namespace LogansFerry.BackTesterPrototype
                 return average / 14;
             }
 
-            return (this.Yesterday.PlusDm14 * 0.92857) + (this.Today.PlusDm * 0.07143);
+            return (this.Yesterday.PlusDm14 * 0.92857f) + (this.Today.PlusDm * 0.07143f);
         }
 
         /// <summary>
@@ -194,17 +194,17 @@ namespace LogansFerry.BackTesterPrototype
         /// <returns>
         /// The -DM14 value.
         /// </returns>
-        private double GetMinusDm14ForToday()
+        private float GetMinusDm14ForToday()
         {
             if (this.currentIndex < 14)
             {
                 // Not enough data.
-                return 0.0d;
+                return 0.0f;
             }
 
             if (this.currentIndex == 14)
             {
-                var average = 0.0d;
+                var average = 0.0f;
                 for (var index = 1; index <= 14; index++)
                 {
                     average += this.priceHistory[index].MinusDm;
@@ -213,7 +213,7 @@ namespace LogansFerry.BackTesterPrototype
                 return average / 14;
             }
 
-            return (this.Yesterday.MinusDm14 * 0.92857) + (this.Today.MinusDm * 0.07143);
+            return (this.Yesterday.MinusDm14 * 0.92857f) + (this.Today.MinusDm * 0.07143f);
         }
 
         /// <summary>
@@ -222,17 +222,17 @@ namespace LogansFerry.BackTesterPrototype
         /// <returns>
         /// The TR14 value.
         /// </returns>
-        private double GetTrueRange14ForToday()
+        private float GetTrueRange14ForToday()
         {
             if (this.currentIndex < 14)
             {
                 // Not enough data.
-                return 0.0d;
+                return 0.0f;
             }
 
             if (this.currentIndex == 14)
             {
-                var average = 0.0d;
+                var average = 0.0f;
                 for (var index = 1; index <= 14; index++)
                 {
                     average += this.priceHistory[index].TrueRange;
@@ -241,7 +241,7 @@ namespace LogansFerry.BackTesterPrototype
                 return average / 14;
             }
 
-            return (this.Yesterday.TrueRange14 * 0.92857) + (this.Today.TrueRange * 0.07143);
+            return (this.Yesterday.TrueRange14 * 0.92857f) + (this.Today.TrueRange * 0.07143f);
         }
 
         /// <summary>
@@ -250,11 +250,11 @@ namespace LogansFerry.BackTesterPrototype
         /// <returns>
         /// The +DI14.
         /// </returns>
-        private double GetPlusDi14ForToday()
+        private float GetPlusDi14ForToday()
         {
             if (this.currentIndex < 14)
             {
-                return 0.0d;
+                return 0.0f;
             }
 
             return this.Today.PlusDm14 / this.Today.TrueRange14 * 100;
@@ -266,11 +266,11 @@ namespace LogansFerry.BackTesterPrototype
         /// <returns>
         /// The -DI14.
         /// </returns>
-        private double GetMinusDi14ForToday()
+        private float GetMinusDi14ForToday()
         {
             if (this.currentIndex < 14)
             {
-                return 0.0d;
+                return 0.0f;
             }
 
             return this.Today.MinusDm14 / this.Today.TrueRange14 * 100;
@@ -282,11 +282,11 @@ namespace LogansFerry.BackTesterPrototype
         /// <returns>
         /// The DX value.
         /// </returns>
-        private double GetDirectionalMovementIndexForToday()
+        private float GetDirectionalMovementIndexForToday()
         {
             if (this.currentIndex < 14)
             {
-                return 0.0d;
+                return 0.0f;
             }
 
             return Math.Abs(this.Today.PlusDi14 - this.Today.MinusDi14) / (this.Today.PlusDi14 + this.Today.MinusDi14) * 100;
@@ -298,16 +298,16 @@ namespace LogansFerry.BackTesterPrototype
         /// <returns>
         /// The calculated ADX.
         /// </returns>
-        private double GetAdxForToday()
+        private float GetAdxForToday()
         {
             if (this.currentIndex < 28)
             {
-                return 0.0d;
+                return 0.0f;
             }
 
             if (this.currentIndex == 28)
             {
-                var average = 0.0d;
+                var average = 0.0f;
                 for (var index = 1; index <= 14; index++)
                 {
                     average += this.priceHistory[index].Dx;
@@ -316,7 +316,7 @@ namespace LogansFerry.BackTesterPrototype
                 return average / 14;
             }
 
-            return (this.Yesterday.Adx * 0.92857) + (this.Today.Dx * 0.07143);
+            return (this.Yesterday.Adx * 0.92857f) + (this.Today.Dx * 0.07143f);
         }
     }
 }

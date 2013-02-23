@@ -22,6 +22,8 @@
 
 namespace LogansFerry.BackTesterPrototype
 {
+    using System;
+
     /// <summary>
     /// A transaction order that will be placed with the Broker.
     /// </summary>
@@ -154,5 +156,13 @@ namespace LogansFerry.BackTesterPrototype
         /// The replacement ID.
         /// </value>
         public int ReplacementId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date on which the order will expire.
+        /// </summary>
+        /// <value>
+        /// The good until.
+        /// </value>
+        public DateTime GoodUntil { get; set; }
     }
 }

@@ -182,7 +182,10 @@ namespace LogansFerry.BackTesterPrototype
         /// <param name="currentPriceData">The current price data.</param>
         public void ProcessOrdersForToday(PriceData currentPriceData)
         {
-            // First, process the pending market orders at the open price for the day.
+            // First, cancel expired orders.
+            this.queuedOrders.RemoveAll(order => order.GoodUntil < currentPriceData.IntervalOpenTime);
+
+            // Next, process the pending market orders at the open price for the day.
             var marketOrders = this.queuedOrders.Where(order => order.Type == Order.Types.Market).ToList();
             this.ProcessMarketOrders(marketOrders, currentPriceData.Open);
             

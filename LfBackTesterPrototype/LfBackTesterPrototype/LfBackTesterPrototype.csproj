@@ -36,6 +36,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,12 +48,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AverageDirectionalMovementCalculator.cs" />
-    <Compile Include="BackTester.cs" />
+    <Compile Include="CandlestickAnalyzer.cs" />
+    <Compile Include="CandlestickConsole.cs" />
+    <Compile Include="ExperimentalPositionBackTester.cs" />
+    <Compile Include="PatternManagementConsole.cs" />
+    <Compile Include="PositionBackTester.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="StockScreenerEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockScreenerEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="SwingBackTester.cs" />
     <Compile Include="BackTestResults.cs" />
     <Compile Include="Broker.cs" />
     <Compile Include="MovingAverageCalculator.cs" />
     <Compile Include="OnBalanceVolumeCalculator.cs" />
-    <Compile Include="GoogleCsvDataSource.cs" />
     <Compile Include="WorksheetEntry.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="PriceData.cs" />
@@ -60,9 +78,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="StockScreenerEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StockScreenerEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <Content Include="COPYING.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

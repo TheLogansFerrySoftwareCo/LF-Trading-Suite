@@ -44,7 +44,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The open price.
         /// </value>
-        public string OpenPrice { get; set; }
+        public float OpenPrice { get; set; }
 
         /// <summary>
         /// Gets or sets the high price.
@@ -52,7 +52,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The high price.
         /// </value>
-        public string HighPrice { get; set; }
+        public float HighPrice { get; set; }
 
         /// <summary>
         /// Gets or sets the low price.
@@ -60,7 +60,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The low price.
         /// </value>
-        public string LowPrice { get; set; }
+        public float LowPrice { get; set; }
 
         /// <summary>
         /// Gets or sets the close price.
@@ -68,7 +68,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The close price.
         /// </value>
-        public string ClosePrice { get; set; }
+        public float ClosePrice { get; set; }
 
         /// <summary>
         /// Gets or sets the volume.
@@ -76,7 +76,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The volume.
         /// </value>
-        public string Volume { get; set; }
+        public int Volume { get; set; }
 
         /// <summary>
         /// Gets or sets the price direction.
@@ -92,7 +92,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The adx.
         /// </value>
-        public string Adx { get; set; }
+        public float Adx { get; set; }
 
         /// <summary>
         /// Gets or sets the adx direction.
@@ -108,7 +108,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The fifty two week percentage.
         /// </value>
-        public string FiftyTwoWeekPercentage { get; set; }
+        public float FiftyTwoWeekPercentage { get; set; }
 
         /// <summary>
         /// Gets or sets the fifty two week high.
@@ -116,7 +116,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The fifty two week high.
         /// </value>
-        public string FiftyTwoWeekHigh { get; set; }
+        public float FiftyTwoWeekHigh { get; set; }
 
         /// <summary>
         /// Gets or sets the fifty two week low.
@@ -124,7 +124,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The fifty two week low.
         /// </value>
-        public string FiftyTwoWeekLow { get; set; }
+        public float FiftyTwoWeekLow { get; set; }
 
         /// <summary>
         /// Gets or sets the short term low.
@@ -132,7 +132,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The short term low.
         /// </value>
-        public string ShortTermLow { get; set; }
+        public float ShortTermLow { get; set; }
 
         /// <summary>
         /// Gets or sets the short term high.
@@ -140,7 +140,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The short term high.
         /// </value>
-        public string ShortTermHigh { get; set; }
+        public float ShortTermHigh { get; set; }
 
         /// <summary>
         /// Gets or sets the intermediate low.
@@ -148,7 +148,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The intermediate low.
         /// </value>
-        public string IntermediateLow { get; set; }
+        public float IntermediateLow { get; set; }
 
         /// <summary>
         /// Gets or sets the intermediate high.
@@ -156,7 +156,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The intermediate high.
         /// </value>
-        public string IntermediateHigh { get; set; }
+        public float IntermediateHigh { get; set; }
 
         /// <summary>
         /// Gets or sets the long term low.
@@ -164,7 +164,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The long term low.
         /// </value>
-        public string LongTermLow { get; set; }
+        public float LongTermLow { get; set; }
 
         /// <summary>
         /// Gets or sets the long term high.
@@ -172,7 +172,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The long term high.
         /// </value>
-        public string LongTermHigh { get; set; }
+        public float LongTermHigh { get; set; }
 
         /// <summary>
         /// Gets or sets the volatility range.
@@ -180,7 +180,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The volatility range.
         /// </value>
-        public string VolatilityRange { get; set; }
+        public float VolatilityRange { get; set; }
 
         /// <summary>
         /// Gets or sets the size of the current position.
@@ -188,7 +188,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The size of the current position.
         /// </value>
-        public string CurrentPositionSize { get; set; }
+        public int CurrentPositionSize { get; set; }
 
         /// <summary>
         /// Gets or sets the current balance.
@@ -196,7 +196,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The current balance.
         /// </value>
-        public string CurrentBalance { get; set; }
+        public float CurrentBalance { get; set; }
 
         /// <summary>
         /// Gets or sets the current stop.
@@ -204,7 +204,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The current stop.
         /// </value>
-        public string CurrentStop { get; set; }
+        public float CurrentStop { get; set; }
 
         /// <summary>
         /// Gets or sets the on balance volume.
@@ -212,7 +212,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The on balance volume.
         /// </value>
-        public string OnBalanceVolume { get; set; }
+        public long OnBalanceVolume { get; set; }
 
         /// <summary>
         /// Gets or sets the on balance volume strength.
@@ -220,7 +220,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The on balance volume strength.
         /// </value>
-        public string OnBalanceVolumeStrength { get; set; }
+        public float OnBalanceVolumeStrength { get; set; }
 
         /// <summary>
         /// Gets or sets the 5-Day EMA.
@@ -228,7 +228,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The EMA 5.
         /// </value>
-        public string Ema5 { get; set; }
+        public float Ema5 { get; set; }
 
         /// <summary>
         /// Gets or sets the 20-Day EMA.
@@ -236,6 +236,6 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The EMA 20.
         /// </value>
-        public string Ema20 { get; set; }
+        public float Ema20 { get; set; }
     }
 }

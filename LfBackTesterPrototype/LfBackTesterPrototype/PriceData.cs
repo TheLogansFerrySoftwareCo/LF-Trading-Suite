@@ -30,37 +30,87 @@ namespace LogansFerry.BackTesterPrototype
     public class PriceData
     {
         /// <summary>
-        /// Gets or sets the opening timestamp of the interval.
+        /// The daily stock data.
         /// </summary>
-        public DateTime IntervalOpenTime { get; set; }
+        private StockDaily stockDaily;
 
         /// <summary>
-        /// Gets or sets the opening price during the interval.
+        /// Initializes a new instance of the <see cref="PriceData"/> class.
         /// </summary>
-        public float Open { get; set; }
+        /// <param name="stockDaily">The stock daily.</param>
+        public PriceData(StockDaily stockDaily)
+        {
+            this.stockDaily = stockDaily;
+        }
 
         /// <summary>
-        /// Gets or sets the closing price during the interval.
+        /// Gets the opening timestamp of the interval.
         /// </summary>
-        public float High { get; set; }
+        public DateTime IntervalOpenTime
+        {
+            get
+            {
+                return this.stockDaily.Date;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the low price during the interval.
+        /// Gets the opening price during the interval.
         /// </summary>
-        public float Low { get; set; }
+        public float Open
+        {
+            get
+            {
+                return this.stockDaily.OpenPrice;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the closing price during the interval. 
+        /// Gets the closing price during the interval.
         /// </summary>
-        public float Close { get; set; }
+        public float High
+        {
+            get
+            {
+                return this.stockDaily.HighPrice;
+            }
+        }
 
         /// <summary>
-        /// Gets or sets the volume.
+        /// Gets the low price during the interval.
+        /// </summary>
+        public float Low
+        {
+            get
+            {
+                return this.stockDaily.LowPrice;
+            }
+        }
+
+        /// <summary>
+        /// Gets the closing price during the interval. 
+        /// </summary>
+        public float Close
+        {
+            get
+            {
+                return this.stockDaily.ClosePrice;
+            }
+        }
+
+        /// <summary>
+        /// Gets the volume.
         /// </summary>
         /// <value>
         /// The volume.
         /// </value>
-        public long Volume { get; set; }
+        public int Volume
+        {
+            get
+            {
+                return this.stockDaily.Volume;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the current direction of the stock's price.
@@ -87,7 +137,7 @@ namespace LogansFerry.BackTesterPrototype
         /// Gets or sets a value indicating whether this is a confirmation day for a prior intermediate low swing point.
         /// </summary>
         /// <value>
-        /// <c>true</c> if this confimrs an intermediate low swing point; otherwise, <c>false</c>.
+        /// <c>true</c> if this confirms an intermediate low swing point; otherwise, <c>false</c>.
         /// </value>
         public bool ConfirmsIntermediateLowSwingPoint { get; set; }
 
@@ -105,7 +155,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The Positive Directional Dovement (+DM).
         /// </value>
-        public double PlusDm { get; set; }
+        public float PlusDm { get; set; }
 
         /// <summary>
         /// Gets or sets the Negative Directional Movement (-DM).  Used to calculate the Average Directional Movement Index (ADX).
@@ -113,7 +163,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The Negative Directional Movement (-DM).
         /// </value>
-        public double MinusDm { get; set; }
+        public float MinusDm { get; set; }
 
         /// <summary>
         /// Gets or sets the 14-day exponential moving average of the Positive Directional Movement (+DM14).  Used to calculate the Average Directional Movement Index (ADX).
@@ -121,7 +171,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The 14-day exponential moving average of the Positive Directional Dovement (+DM14).
         /// </value>
-        public double PlusDm14 { get; set; }
+        public float PlusDm14 { get; set; }
 
         /// <summary>
         /// Gets or sets the 14-day exponential moving average of the Negative Directional Movement (-DM14).  Used to calculate the Average Directional Movement Index (ADX).
@@ -129,7 +179,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The 14-day exponential moving average of the Negative Directional Movement (-DM14).
         /// </value>
-        public double MinusDm14 { get; set; }
+        public float MinusDm14 { get; set; }
 
         /// <summary>
         /// Gets or sets the true range of price movement.
@@ -137,7 +187,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The true range.
         /// </value>
-        public double TrueRange { get; set; }
+        public float TrueRange { get; set; }
 
         /// <summary>
         /// Gets or sets the 14-day exponential moving average of the true range.
@@ -145,7 +195,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The 14-day exponential moving average of the true range.
         /// </value>
-        public double TrueRange14 { get; set; }
+        public float TrueRange14 { get; set; }
 
         /// <summary>
         /// Gets or sets the 14-day exponential moving average of the Positive Directional Movement (+DI14).  Used to calculate the Average Directional Movement Index (ADX).
@@ -153,7 +203,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The 14-day exponential moving average of the Positive Directional Indicator (+DI14).
         /// </value>
-        public double PlusDi14 { get; set; }
+        public float PlusDi14 { get; set; }
 
         /// <summary>
         /// Gets or sets the 14-day exponential moving average of the Negative Directional Movement (-DI14).  Used to calculate the Average Directional Movement Index (ADX).
@@ -161,7 +211,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The Negative 14-day exponential moving average of the Directional Indicator (-DI14).
         /// </value>
-        public double MinusDi14 { get; set; }
+        public float MinusDi14 { get; set; }
 
         /// <summary>
         /// Gets or sets the Directional Movement Index (DX).  Used to calculate the Average Directional Movement Index (ADX).
@@ -169,7 +219,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The Directional Indicator (DX).
         /// </value>
-        public double Dx { get; set; }
+        public float Dx { get; set; }
 
         /// <summary>
         /// Gets or sets the Average Directional Movement Index. (ADX).
@@ -177,7 +227,7 @@ namespace LogansFerry.BackTesterPrototype
         /// <value>
         /// The ADX.
         /// </value>
-        public double Adx { get; set; }
+        public float Adx { get; set; }
 
         /// <summary>
         /// Gets the ADX direction.

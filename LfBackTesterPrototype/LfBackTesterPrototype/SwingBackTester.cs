@@ -30,7 +30,7 @@ namespace LogansFerry.BackTesterPrototype
     /// <summary>
     /// The main class of this prototype that will manage the overall backtesting operation.
     /// </summary>
-    public class BackTester
+    public class SwingBackTester
     {
         /// <summary>
         /// The price data that will be used for the back test.
@@ -136,14 +136,14 @@ namespace LogansFerry.BackTesterPrototype
         private DateTime lastIntermediHighSwingDate;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BackTester"/> class.
+        /// Initializes a new instance of the <see cref="SwingBackTester"/> class.
         /// </summary>
         /// <param name="priceHistory">The price history.</param>
         /// <param name="broker">The broker.</param>
         /// <param name="adxCalculator">The ADX calculator.</param>
         /// <param name="obvCalculator">The OBV calculator.</param>
         /// <param name="emaCalculator">The EMA calculator.</param>
-        public BackTester(List<PriceData> priceHistory, Broker broker, AverageDirectionalMovementCalculator adxCalculator, OnBalanceVolumeCalculator obvCalculator, MovingAverageCalculator emaCalculator)
+        public SwingBackTester(List<PriceData> priceHistory, Broker broker, AverageDirectionalMovementCalculator adxCalculator, OnBalanceVolumeCalculator obvCalculator, MovingAverageCalculator emaCalculator)
         {
             this.priceHistory = priceHistory;
             this.broker = broker;
@@ -239,14 +239,8 @@ namespace LogansFerry.BackTesterPrototype
                     {
                         //// There is an open position, so look for maintanence orders.
                         
-                        // First, look to see if we should build-up the position with a pyramid increase.
-                        var isIncreaseOrderPlaced = this.LookForPyramidIncrease();
-
                         // If we didn't place an increase order, then just verify the current stop order.
-                        if (!isIncreaseOrderPlaced)
-                        {
-                            this.AdjustStopOrder();
-                        }
+                        this.AdjustStopOrder();
                     }
                 }
 
@@ -405,7 +399,7 @@ namespace LogansFerry.BackTesterPrototype
             {
                 this.Today.ConfirmsShortTermLowSwingPoint = true;
                 this.shortTermLows.Add(this.priceHistory[middleDayIndex].Low);
-                this.currentWorksheetEntry.ShortTermLow = this.priceHistory[middleDayIndex].Low.ToString(CultureInfo.InvariantCulture);
+                this.currentWorksheetEntry.ShortTermLow = this.priceHistory[middleDayIndex].Low;
 
                 this.LookForIntermediateLow(); 
             }
@@ -424,7 +418,7 @@ namespace LogansFerry.BackTesterPrototype
             {
                 this.Today.ConfirmsIntermediateLowSwingPoint = true;
                 this.intermediateLows.Add(this.shortTermLows[this.shortTermLows.Count - 2]);
-                this.currentWorksheetEntry.IntermediateLow = this.shortTermLows[this.shortTermLows.Count - 2].ToString(CultureInfo.InvariantCulture);
+                this.currentWorksheetEntry.IntermediateLow = this.shortTermLows[this.shortTermLows.Count - 2];
 
                 this.LookForLongTermLow();
             }
@@ -442,7 +436,7 @@ namespace LogansFerry.BackTesterPrototype
                     this.intermediateLows[this.intermediateLows.Count - 1]))
             {
                 this.longTermLows.Add(this.intermediateLows[this.intermediateLows.Count - 2]);
-                this.currentWorksheetEntry.LongTermLow = this.intermediateLows[this.intermediateLows.Count - 2].ToString(CultureInfo.InvariantCulture);
+                this.currentWorksheetEntry.LongTermLow = this.intermediateLows[this.intermediateLows.Count - 2];
             }
         }
 
@@ -457,7 +451,7 @@ namespace LogansFerry.BackTesterPrototype
             {
                 this.Today.ConfirmsShortTermHighSwingPoint = true;
                 this.shortTermHighs.Add(this.Yesterday.High);
-                this.currentWorksheetEntry.ShortTermHigh = this.Yesterday.High.ToString(CultureInfo.InvariantCulture);
+                this.currentWorksheetEntry.ShortTermHigh = this.Yesterday.High;
 
                 this.LookForIntermediateHigh();
             }
@@ -476,7 +470,7 @@ namespace LogansFerry.BackTesterPrototype
             {
                 this.Today.ConfirmsIntermediateHighSwingPoint = true;
                 this.intermediateHighs.Add(this.shortTermHighs[this.shortTermHighs.Count - 2]);
-                this.currentWorksheetEntry.IntermediateHigh = this.shortTermHighs[this.shortTermHighs.Count - 2].ToString(CultureInfo.InvariantCulture);
+                this.currentWorksheetEntry.IntermediateHigh = this.shortTermHighs[this.shortTermHighs.Count - 2];
 
                 this.LookForLongTermHigh();
             }
@@ -494,7 +488,7 @@ namespace LogansFerry.BackTesterPrototype
                     this.intermediateHighs[this.intermediateHighs.Count - 1]))
             {
                 this.longTermHighs.Add(this.intermediateHighs[this.intermediateHighs.Count - 2]);
-                this.currentWorksheetEntry.LongTermHigh = this.intermediateHighs[this.intermediateHighs.Count - 2].ToString(CultureInfo.InvariantCulture);
+                this.currentWorksheetEntry.LongTermHigh = this.intermediateHighs[this.intermediateHighs.Count - 2];
             }
         }
 
@@ -503,32 +497,32 @@ namespace LogansFerry.BackTesterPrototype
         /// </summary>
         private void UpdateWorksheetEntry()
         {
-            this.currentWorksheetEntry.Adx = this.Today.Adx.ToString(CultureInfo.InvariantCulture);
+            this.currentWorksheetEntry.Adx = this.Today.Adx;
             this.currentWorksheetEntry.AdxDirection = Enum.GetName(typeof(PriceDirections), this.Today.AdxDirection);
-            this.currentWorksheetEntry.ClosePrice = this.Today.Close.ToString(CultureInfo.InvariantCulture);
+            this.currentWorksheetEntry.ClosePrice = this.Today.Close;
             this.currentWorksheetEntry.Date = this.Today.IntervalOpenTime.ToShortDateString();
-            this.currentWorksheetEntry.FiftyTwoWeekHigh = this.current52WeekHigh.ToString(CultureInfo.InvariantCulture);
-            this.currentWorksheetEntry.FiftyTwoWeekLow = this.current52WeekLow.ToString(CultureInfo.InvariantCulture);
+            this.currentWorksheetEntry.FiftyTwoWeekHigh = this.current52WeekHigh;
+            this.currentWorksheetEntry.FiftyTwoWeekLow = this.current52WeekLow;
             this.currentWorksheetEntry.FiftyTwoWeekPercentage =
-                this.current52WeekPercentage.ToString(CultureInfo.InvariantCulture);
-            this.currentWorksheetEntry.HighPrice = this.Today.High.ToString(CultureInfo.InvariantCulture);
-            this.currentWorksheetEntry.LowPrice = this.Today.Low.ToString(CultureInfo.InvariantCulture);
-            this.currentWorksheetEntry.OpenPrice = this.Today.Open.ToString(CultureInfo.InvariantCulture);
+                this.current52WeekPercentage;
+            this.currentWorksheetEntry.HighPrice = this.Today.High;
+            this.currentWorksheetEntry.LowPrice = this.Today.Low;
+            this.currentWorksheetEntry.OpenPrice = this.Today.Open;
             this.currentWorksheetEntry.PriceDirection = Enum.GetName(typeof(PriceDirections), this.Today.Direction);
-            this.currentWorksheetEntry.VolatilityRange = this.Today.VolatilityRange.ToString(CultureInfo.InvariantCulture);
-            this.currentWorksheetEntry.Volume = this.Today.Volume.ToString(CultureInfo.InvariantCulture);
-            this.currentWorksheetEntry.CurrentBalance = this.broker.CurrentBalance.ToString(CultureInfo.InvariantCulture);
+            this.currentWorksheetEntry.VolatilityRange = this.Today.VolatilityRange;
+            this.currentWorksheetEntry.Volume = this.Today.Volume;
+            this.currentWorksheetEntry.CurrentBalance = this.broker.CurrentBalance;
             this.currentWorksheetEntry.CurrentPositionSize =
-                this.broker.CurrentPositionSize.ToString(CultureInfo.InvariantCulture);
-            this.currentWorksheetEntry.OnBalanceVolume = this.Today.OnBalanceVolume.ToString(CultureInfo.InvariantCulture);
+                this.broker.CurrentPositionSize;
+            this.currentWorksheetEntry.OnBalanceVolume = this.Today.OnBalanceVolume;
             this.currentWorksheetEntry.OnBalanceVolumeStrength =
-                this.Today.ObvStrength.ToString(CultureInfo.InvariantCulture);
-            this.currentWorksheetEntry.Ema5 = this.Today.Ema5.ToString(CultureInfo.InvariantCulture);
-            this.currentWorksheetEntry.Ema20 = this.Today.Ema20.ToString(CultureInfo.InvariantCulture);
+                this.Today.ObvStrength;
+            this.currentWorksheetEntry.Ema5 = this.Today.Ema5;
+            this.currentWorksheetEntry.Ema20 = this.Today.Ema20;
 
             if (this.broker.CurrentPositionSize != 0)
             {
-                this.currentWorksheetEntry.CurrentStop = this.currentStopPrice.ToString(CultureInfo.InvariantCulture);
+                this.currentWorksheetEntry.CurrentStop = this.currentStopPrice;
             }
         }
 
@@ -540,7 +534,7 @@ namespace LogansFerry.BackTesterPrototype
             // Look for an entrance into a long position.
             if (this.IsTodayALongSetup())
             {
-                this.PlaceOrderForLongPosition(this.pyramidLevels[0], false);
+                this.PlaceStopMarketOrderForLongPosition(this.pyramidLevels[0], false);
             }
 
             // TODO:  Look for entrances into short positions.
@@ -557,6 +551,15 @@ namespace LogansFerry.BackTesterPrototype
         /// </remarks>
         private bool IsTodayALongSetup()
         {
+            return this.IsTodayPotentialHigherLow()
+                              && this.lastIntermediHighSwingDate < this.lastIntermediateLowSwingDate
+                              && IsLowSwingPoint(
+                                  this.shortTermLows[this.shortTermLows.Count - 1],
+                                  this.shortTermLows[this.shortTermLows.Count - 2],
+                                  this.Today.Low);
+
+            // TODO:
+            /*
             // For this strategy, a long setup is a day that confirms a second-consecutive
             // intermediate low swing point. 
             var isLongSetup = this.Today.ConfirmsIntermediateLowSwingPoint
@@ -569,6 +572,28 @@ namespace LogansFerry.BackTesterPrototype
                && this.Today.LastEmaCrossOverDirection == PriceDirections.Up;
 
             return isLongSetup && isSetupConfirmed;
+             */
+        }
+
+        /// <summary>
+        /// Determines whether today is a potential higher short-term low.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if today is a potential higher short-term low; otherwise, <c>false</c>.
+        /// </returns>
+        /// <remarks>
+        /// Today is potentially a higher short-term low if
+        /// 1) it is a down day
+        /// 2) it will be a low swing day if tomorrow is an up day.
+        /// 3) its low is higher than the previous short-term low.
+        /// 4) It would confirm an intermediate low.
+        /// </remarks>
+        private bool IsTodayPotentialHigherLow()
+        {
+            var priorDayIndex = this.GetFirstPriorNonInsideDayIndex(this.currentIndex);
+            return this.Today.Direction == PriceDirections.Down
+                   && IsLowSwingPoint(this.Today.Low, this.priceHistory[priorDayIndex].Low, this.Today.Low + 1.0f)
+                   && this.Today.Low > this.shortTermLows[this.shortTermLows.Count - 1];
         }
 
         /// <summary>
@@ -611,6 +636,7 @@ namespace LogansFerry.BackTesterPrototype
                 Id = this.broker.GetNextOrderId(),
                 Action = Order.Actions.Sell,
                 ActivationPrice = this.CalculateStopPriceForLongPosition(),
+                GoodUntil = this.Today.IntervalOpenTime + TimeSpan.FromDays(365),
                 Position = Order.Positions.Long,
                 Quantity = quantity + Math.Abs(this.broker.CurrentPositionSize),
                 Type = Order.Types.StopMarket
@@ -620,9 +646,51 @@ namespace LogansFerry.BackTesterPrototype
             {
                 Id = this.broker.GetNextOrderId(),
                 Action = Order.Actions.Buy,
+                GoodUntil = this.Today.IntervalOpenTime + TimeSpan.FromDays(1),
                 Position = Order.Positions.Long,
                 Quantity = quantity,
                 Type = Order.Types.Market,
+                ConditionalOrder = stopOrder
+            };
+
+            if (replaceCurrentStop)
+            {
+                stopOrder.IsReplacementOrder = true;
+                stopOrder.ReplacementId = this.GetCurrentStopOrderId();
+            }
+
+            this.currentStopPrice = stopOrder.ActivationPrice;
+
+            this.broker.QueueOrder(order);
+        }
+
+        /// <summary>
+        /// Places a stop market order for a long position.
+        /// </summary>
+        /// <param name="quantity">The quantity.</param>
+        /// <param name="replaceCurrentStop">if set to <c>true</c> replace the current stop order.</param>
+        private void PlaceStopMarketOrderForLongPosition(int quantity, bool replaceCurrentStop)
+        {
+            var stopOrder = new Order
+            {
+                Id = this.broker.GetNextOrderId(),
+                Action = Order.Actions.Sell,
+                ActivationPrice = this.Today.Low,
+                GoodUntil = this.Today.IntervalOpenTime + TimeSpan.FromDays(365),
+                Position = Order.Positions.Long,
+                Quantity = quantity + Math.Abs(this.broker.CurrentPositionSize),
+                Type = Order.Types.StopMarket
+            };
+
+            var order = new Order
+            {
+                Id = this.broker.GetNextOrderId(),
+                Action = Order.Actions.Buy,
+                ActivationPrice = this.Today.High * 1.015f,
+                GoodUntil = this.Today.IntervalOpenTime + TimeSpan.FromDays(1),
+                Position = Order.Positions.Long,
+                Quantity = quantity,
+                Type = Order.Types.StopMarket,
                 ConditionalOrder = stopOrder
             };
 
@@ -649,6 +717,7 @@ namespace LogansFerry.BackTesterPrototype
                 Id = this.broker.GetNextOrderId(),
                 Action = Order.Actions.Buy,
                 ActivationPrice = this.CalculateStopPriceForShortPosition(),
+                GoodUntil = this.Today.IntervalOpenTime + TimeSpan.FromDays(365),
                 Position = Order.Positions.Short,
                 Quantity = quantity + Math.Abs(this.broker.CurrentPositionSize),
                 Type = Order.Types.StopMarket
@@ -658,6 +727,7 @@ namespace LogansFerry.BackTesterPrototype
             {
                 Id = this.broker.GetNextOrderId(),
                 Action = Order.Actions.Sell,
+                GoodUntil = this.Today.IntervalOpenTime + TimeSpan.FromDays(1),
                 Position = Order.Positions.Short,
                 Quantity = quantity,
                 Type = Order.Types.Market,
@@ -759,6 +829,7 @@ namespace LogansFerry.BackTesterPrototype
                     Id = this.broker.GetNextOrderId(),
                     Action = Order.Actions.Sell,
                     ActivationPrice = stopPrice,
+                    GoodUntil = this.Today.IntervalOpenTime + TimeSpan.FromDays(365),
                     Position = Order.Positions.Long,
                     Quantity = Math.Abs(this.broker.CurrentPositionSize),
                     Type = Order.Types.StopMarket,
@@ -782,6 +853,7 @@ namespace LogansFerry.BackTesterPrototype
                     Id = this.broker.GetNextOrderId(),
                     Action = Order.Actions.Buy,
                     ActivationPrice = stopPrice,
+                    GoodUntil = this.Today.IntervalOpenTime + TimeSpan.FromDays(365),
                     Position = Order.Positions.Short,
                     Quantity = Math.Abs(this.broker.CurrentPositionSize),
                     Type = Order.Types.StopMarket,
