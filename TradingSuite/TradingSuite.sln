@@ -1,0 +1,72 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingSuite.WebApp", "TradingSuite.WebApp\TradingSuite.WebApp.csproj", "{7E1780E2-33AE-47C7-80B5-5F7A301586BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingSuite.WebApp.Tests", "TradingSuite.WebApp.Tests\TradingSuite.WebApp.Tests.csproj", "{C68621E2-44E0-49A0-ACA8-663F6E7E93FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingSuite.DataFetchers", "TradingSuite.DataFetching\TradingSuite.DataFetchers.csproj", "{1DFFBEFE-AE01-4C3F-AACE-190711561BA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1ACDA2CD-B9BA-4580-8283-3DF5CEE65A1D}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+		TradingSuite.vsmdi = TradingSuite.vsmdi
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingSuite.Core", "TradingSuite.Core\TradingSuite.Core.csproj", "{5FC7AD0E-146B-45A7-A4AD-60A83A01424D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingSuite.DataFetchers.Tests", "TradingSuite.DataFetching.Tests\TradingSuite.DataFetchers.Tests.csproj", "{9A2F8D3D-18FD-43CF-A506-F38368D65EB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingSuite.NHibernate", "TradingSuite.NHibernate\TradingSuite.NHibernate.csproj", "{1332C6D3-E907-44FD-B449-1B514B99F697}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingSuite.NHibernate.Tests", "TradingSuite.NHibernate.Tests\TradingSuite.NHibernate.Tests.csproj", "{51DEB12B-71DB-421F-9EB6-593A6FFF493E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingSuite.Core.Tests", "TradingSuite.Core.Tests\TradingSuite.Core.Tests.csproj", "{00E3FF32-BE81-471A-9158-75B303632C2E}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = TradingSuite.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E1780E2-33AE-47C7-80B5-5F7A301586BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E1780E2-33AE-47C7-80B5-5F7A301586BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E1780E2-33AE-47C7-80B5-5F7A301586BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E1780E2-33AE-47C7-80B5-5F7A301586BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C68621E2-44E0-49A0-ACA8-663F6E7E93FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C68621E2-44E0-49A0-ACA8-663F6E7E93FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C68621E2-44E0-49A0-ACA8-663F6E7E93FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C68621E2-44E0-49A0-ACA8-663F6E7E93FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DFFBEFE-AE01-4C3F-AACE-190711561BA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DFFBEFE-AE01-4C3F-AACE-190711561BA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DFFBEFE-AE01-4C3F-AACE-190711561BA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DFFBEFE-AE01-4C3F-AACE-190711561BA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FC7AD0E-146B-45A7-A4AD-60A83A01424D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FC7AD0E-146B-45A7-A4AD-60A83A01424D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FC7AD0E-146B-45A7-A4AD-60A83A01424D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FC7AD0E-146B-45A7-A4AD-60A83A01424D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A2F8D3D-18FD-43CF-A506-F38368D65EB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A2F8D3D-18FD-43CF-A506-F38368D65EB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A2F8D3D-18FD-43CF-A506-F38368D65EB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A2F8D3D-18FD-43CF-A506-F38368D65EB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1332C6D3-E907-44FD-B449-1B514B99F697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1332C6D3-E907-44FD-B449-1B514B99F697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1332C6D3-E907-44FD-B449-1B514B99F697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1332C6D3-E907-44FD-B449-1B514B99F697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51DEB12B-71DB-421F-9EB6-593A6FFF493E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51DEB12B-71DB-421F-9EB6-593A6FFF493E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51DEB12B-71DB-421F-9EB6-593A6FFF493E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51DEB12B-71DB-421F-9EB6-593A6FFF493E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00E3FF32-BE81-471A-9158-75B303632C2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00E3FF32-BE81-471A-9158-75B303632C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00E3FF32-BE81-471A-9158-75B303632C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00E3FF32-BE81-471A-9158-75B303632C2E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
