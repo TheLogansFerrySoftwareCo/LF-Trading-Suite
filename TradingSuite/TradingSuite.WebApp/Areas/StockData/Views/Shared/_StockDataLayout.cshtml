@@ -1,0 +1,23 @@
+﻿@using LogansFerry.TradingSuite.WebApp
+@{
+    Layout = MVC.Shared.Views._Site;
+}
+@section head
+{
+    @RenderSection("head", false)
+}
+@section GroupContent
+{
+    <h2>Stock Data</h2>
+    <div id="group_container">
+        <div id="group_menu">
+            <h3>Menu</h3>
+            <p>@Html.ActionLink("Update Prices from Web", string.Empty, string.Empty)</p>
+            <p>@Html.ActionLink("Manage Tickers List", string.Empty, string.Empty)</p>
+            <p>@Html.ActionLink("Excluded Tickers", string.Empty, string.Empty)</p>
+        </div>
+        <div id="page_content">
+            @this.RenderSection("PageContent")
+        </div>
+    </div>
+}

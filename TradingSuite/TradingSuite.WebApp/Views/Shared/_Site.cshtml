@@ -1,0 +1,41 @@
+@using LogansFerry.TradingSuite.WebApp
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    @RenderSection("head", false)
+</head>
+
+<body>
+    <div class="page">
+
+        <div id="header">
+            <div id="title">
+                <h1>Trading Suite</h1>
+            </div>
+            
+            <div id="menucontainer">
+            
+                <ul id="menu">
+                    @*Todo:  Map to controller actions*@
+                    <li>@(Html.ActionLink("Stock Data", String.Empty, String.Empty))</li>
+                    <li>@(Html.ActionLink("Strategy Builder", String.Empty, String.Empty))</li>
+                    <li>@(Html.ActionLink("Screener", String.Empty, String.Empty))</li>
+                </ul>
+            
+            </div>
+        </div>
+
+        <div id="group_content">
+            @RenderSection("GroupContent", required: false)
+
+            <div id="footer">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
