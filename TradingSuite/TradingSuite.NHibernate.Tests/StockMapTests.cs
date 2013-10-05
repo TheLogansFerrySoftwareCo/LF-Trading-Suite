@@ -70,7 +70,7 @@ namespace LogansFerry.TradingSuite.NHibernate.Tests
         private static ISession GetInMemoryDatabaseSession()
         {
             Configuration configuration = null;
-            var session = Fluently.Configure()
+            ISessionFactory sessionFactory = Fluently.Configure()
                 .Database(
                     SQLiteConfiguration.Standard 
                         .InMemory()
@@ -79,7 +79,8 @@ namespace LogansFerry.TradingSuite.NHibernate.Tests
                     m => m.FluentMappings.AddFromAssemblyOf<StockMap>())
                 .ExposeConfiguration(
                     cfg => configuration = cfg)
-                .BuildSessionFactory().OpenSession();
+                .BuildSessionFactory();
+            var session = sessionFactory.OpenSession();
 
             var schemaExport = new SchemaExport(configuration);
             schemaExport.Execute(true, true, false, session.Connection, null);
