@@ -1,5 +1,5 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ITickerRepository.cs" company="The Logans Ferry Software Co.">
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="TickerErrorViewModel.cs" company="The Logans Ferry Software Co.">
 //   Copyright 2013, The Logans Ferry Software Co. 
 // </copyright>
 // <license>  
@@ -18,31 +18,27 @@
 // </license>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Models.Repositories
+namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Models
 {
-    using System.Collections.Generic;
-
-    using LogansFerry.TradingSuite.WebApp.Areas.StockData.Models;
-
     /// <summary>
-    /// A repository for ticker symbol objects.
+    /// A view model for displaying information about a price history download error.
     /// </summary>
-    public interface ITickerRepository
+    public class DownloadErrorViewModel
     {
         /// <summary>
-        /// Gets an enumeration of view models representing tickers that failed to update.
+        /// Gets or sets the ticker symbol.
         /// </summary>
-        /// <returns>
-        /// An enumeration of ticker error view models.
-        /// </returns>
-        IEnumerable<TickerUpdateViewModel.TickerErrorViewModel> GetTickerErrorViewModels();
+        public string Ticker { get; set; }
 
         /// <summary>
-        /// Updates the IsExcluded flag for the specified ticker.
+        /// Gets or sets the error message describing the error that occurred during the ticker's last download.
+        /// An empty string indicates that no error occurred during the last download.
         /// </summary>
-        /// <param name="ticker">The ticker.</param>
-        /// <param name="isExcluded">The new flag value.</param>
-        /// <returns>True, when the update is successfully completed.</returns>
-        bool UpdateIsExcludedFlag(string ticker, bool isExcluded);
+        public string ErrorMessage { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the ticker is excluded from price-update operations.
+        /// </summary>
+        public bool IsExcluded { get; set; }
     }
 }

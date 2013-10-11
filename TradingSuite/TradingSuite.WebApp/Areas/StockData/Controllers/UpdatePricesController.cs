@@ -24,7 +24,10 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
     using System.Linq;
     using System.Web.Mvc;
 
-    using LogansFerry.TradingSuite.WebApp.Areas.StockData.Models.Repositories;
+    using AutoMapper;
+
+    using LogansFerry.TradingSuite.Repositories;
+    using LogansFerry.TradingSuite.WebApp.Areas.StockData.Models;
 
     /// <summary>
     /// Home controller class for the "Database Management" area of the application.
@@ -32,19 +35,28 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
     public partial class UpdatePricesController : Controller
     {
         /// <summary>
-        /// The repository that will retrieve information about ticker symbols.
+        /// The repository that will retrieve information about stocks.
         /// </summary>
-        private readonly ITickerRepository tickerRepository;
+        private readonly IStockRepository stockRepository;
+
+        /// <summary>
+        /// A list of download errors, indexed by ticker symbol.
+        /// </summary>
+        private readonly IDictionary<string, string> downloadErrorList; 
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UpdatePricesController"/> class.
         /// </summary>
-        /// <param name="tickerRepository">The ticker repository.</param>
+        /// <param name="stockRepository">The stock repository.</param>
 // ReSharper disable UnusedMember.Global -- (This constructor is used by StructureMap.)
-        public UpdatePricesController(ITickerRepository tickerRepository)
+        public UpdatePricesController(IStockRepository stockRepository)
 // ReSharper restore UnusedMember.Global
         {
-            this.tickerRepository = tickerRepository;
+            this.stockRepository = stockRepository;
+            this.downloadErrorList = new Dictionary<string, string>();
+
+            // TODO: Remove
+            this.downloadErrorList.Add("ABCDEF", "Bad download.");
         }
 
         /// <summary>
@@ -55,9 +67,7 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
         /// </returns>
         public virtual ActionResult Index()
         {
-            var tickers = this.tickerRepository.GetTickerErrorViewModels();
-            var errorTickers = tickers.Where(ticker => !string.IsNullOrEmpty(ticker.ErrorMessage) && !ticker.IsExcluded);
-            return this.View(errorTickers);
+            return this.View(this.GetDownloadErrorViewModels());
         }
 
         /// <summary>
@@ -72,11 +82,11 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
         }
 
         /// <summary>
-        /// An action that will flag selected ticker symbols as excluded.
+        /// An action that will flag selected stocks as excluded.
         /// </summary>
-        /// <param name="tickers">The tickers to update.</param>
+        /// <param name="tickers">The stocks to update.</param>
         /// <returns>
-        /// A list of tickers that were successfully updated.
+        /// A list of stocks that were successfully updated.
         /// </returns>
         [HttpPost]
         public virtual JsonResult FlagAsExcluded(List<string> tickers)
@@ -87,11 +97,40 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
             }
 
             var updatedTickers = (from ticker in tickers 
-                                  let isUpdateSuccessful = this.tickerRepository.UpdateIsExcludedFlag(ticker, true) 
+                                  let isUpdateSuccessful = this.stockRepository.UpdateIsExcludedFlag(ticker, true) 
                                   where isUpdateSuccessful 
                                   select ticker).ToList();
 
             return this.Json(updatedTickers, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Gets a list of download error view models for the current error listing.
+        /// </summary>
+        /// <returns>
+        /// A list of download error view models.
+        /// </returns>
+        private IEnumerable<DownloadErrorViewModel> GetDownloadErrorViewModels()
+        {
+            var downloadErrorViewModels = new List<DownloadErrorViewModel>();
+            
+            Mapper.CreateMap<Stock, DownloadErrorViewModel>();
+
+            foreach (var downloadError in this.downloadErrorList)
+            {
+                var stock = this.stockRepository.GetByTicker(downloadError.Key);
+
+                if (stock.IsExcluded)
+                {
+                    continue;
+                }
+
+                var viewModel = Mapper.Map<Stock, DownloadErrorViewModel>(stock);
+                viewModel.ErrorMessage = downloadError.Value;
+                downloadErrorViewModels.Add(viewModel);
+            }
+
+            return downloadErrorViewModels;
         }
     }
 }

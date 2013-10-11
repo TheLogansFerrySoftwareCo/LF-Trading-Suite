@@ -1,5 +1,5 @@
 ﻿@using MvcContrib.UI.Grid
-@model IEnumerable<LogansFerry.TradingSuite.WebApp.Areas.StockData.Models.TickerUpdateViewModel.TickerErrorViewModel>
+@model IEnumerable<LogansFerry.TradingSuite.WebApp.Areas.StockData.Models.DownloadErrorViewModel>
 @{
     Layout = MVC.StockData.Shared.Views._StockDataLayout;
 }
@@ -36,7 +36,6 @@
                     {
                         column.For(ticker => Html.CheckBoxFor(m => ticker.IsExcluded, new { value = ticker.Ticker }));
                         column.For(ticker => ticker.Ticker);
-                        column.For(ticker => ticker.Exchange);
                         column.For(ticker => ticker.ErrorMessage);
                     })
                 <p class="table_caption">Select: <a href="" id="select_all">All</a> | <a href="" id="select_none">None</a></p>

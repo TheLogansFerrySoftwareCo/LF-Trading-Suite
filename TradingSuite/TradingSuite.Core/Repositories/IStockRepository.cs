@@ -35,5 +35,13 @@ namespace LogansFerry.TradingSuite.Repositories
         /// The number of stocks that were successfully added.
         /// </returns>
         int TryAddNewStocks(IEnumerable<Stock> stocksToAdd);
+
+        /// <summary>
+        /// Updates the is excluded flag for the specified stock.
+        /// </summary>
+        /// <param name="ticker">The ticker.</param>
+        /// <param name="isExcluded">The new flag value.</param>
+        /// <returns>True, when the update is successful.</returns>
+        bool UpdateIsExcludedFlag(string ticker, bool isExcluded);
     }
 }

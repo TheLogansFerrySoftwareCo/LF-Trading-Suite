@@ -31,7 +31,7 @@ namespace LogansFerry.TradingSuite.WebApp
 
     using log4net;
 
-    using LogansFerry.TradingSuite.WebApp.Areas.StockData.Models.Repositories;
+    using LogansFerry.TradingSuite.Repositories;
 
     using NHibernate;
     using global::NHibernate;
@@ -115,8 +115,13 @@ namespace LogansFerry.TradingSuite.WebApp
         /// </summary>
         private void ConfigureStructureMap()
         {
-            ObjectFactory.Configure(cfg => cfg.For<ITickerRepository>().Use<DummyTickerRepository>());
             ObjectFactory.Configure(cfg => cfg.For<ISessionFactory>().Use(this.sessionFactory));
+
+            // Stock data repositories.
+            ObjectFactory.Configure(cfg => cfg.For<IReadOnlyRepository<Stock>>().Use<NHibernateReadOnlyRepository<Stock>>());
+            ObjectFactory.Configure(cfg => cfg.For<IRepository<Stock>>().Use<NHibernateRepository<Stock>>());
+            ObjectFactory.Configure(cfg => cfg.For<IReadOnlyStockRepository>().Use<ReadOnlyStockRepository>());
+            ObjectFactory.Configure(cfg => cfg.For<IStockRepository>().Use<StockRepository>());
         }
     }
 }

@@ -69,5 +69,12 @@ namespace LogansFerry.TradingSuite.Repositories
             
             return newStocks.Count;
         }
+
+        public bool UpdateIsExcludedFlag(string ticker, bool isExcluded)
+        {
+            var stock = this.GetByTicker(ticker);
+            stock.IsExcluded = isExcluded;
+            return this.repository.Update(stock);
+        }
     }
 }
