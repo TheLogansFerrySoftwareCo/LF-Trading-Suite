@@ -8,8 +8,7 @@
 {
     <script type="text/javascript" src="~/Scripts/jquery-2.0.3.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery-ui-1.10.3.js"></script>
-    <script type="text/javascript" src="~/Areas/StockData/Scripts/TickerUpdateAll.js"></script>
-    <script type="text/javascript" src="~/Areas/StockData/Scripts/TickerUpdateErrors.js"></script>
+    <script type="text/javascript" src="~/Areas/StockData/Scripts/UpdatePrices.js"></script>
     <script type="text/javascript" src="~/Scripts/checkboxes.js"></script>
 }
 
@@ -26,23 +25,23 @@
         <div id="update_all_progress_bar" class="progressbar"></div>
         <p>Downloading: <span id="current_update_ticker"></span> (<span id="current_update_percentage"></span>%)</p>
     </div>
-    <h4>Failed Updates</h4>
-    <div id ="ticker_update_errors">
+    <h4>Failed Price Downloads</h4>
+    <div id ="price_update_errors">
         @{
             if (this.Model.Any())
             {
                 <p class="table_caption"><a href="">Retry</a> | @Html.ActionLink("Flag as Excluded", MVC.StockData.UpdatePrices.ActionNames.FlagAsExcluded, MVC.StockData.UpdatePrices.Name, null, new { id = "flag_excluded_action" })</p>
                 @Html.Grid(this.Model).Columns(column =>
                     {
-                        column.For(ticker => Html.CheckBoxFor(m => ticker.IsExcluded, new { value = ticker.Ticker }));
-                        column.For(ticker => ticker.Ticker);
-                        column.For(ticker => ticker.ErrorMessage);
+                        column.For(stock => Html.CheckBoxFor(m => stock.IsExcluded, new { value = stock.Ticker }));
+                        column.For(stock => stock.Ticker);
+                        column.For(stock => stock.ErrorMessage);
                     })
                 <p class="table_caption">Select: <a href="" id="select_all">All</a> | <a href="" id="select_none">None</a></p>
             }
             else
             {
-                <p>No failed tickers are available.</p>
+                <p>No failed price downloads are available.</p>
             }
         }
     </div>

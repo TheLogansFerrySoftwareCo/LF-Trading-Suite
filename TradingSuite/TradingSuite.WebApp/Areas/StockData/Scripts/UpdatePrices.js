@@ -27,12 +27,14 @@
                     $("input[value=" + item + "]").closest("tr").remove();
                 });
 
-                if ($("#ticker_update_errors tr").length <= 1) {
-                    $("#ticker_update_errors").replaceWith($("<p>No failed tickers are available.</p>"));
+                if ($("#price_update_errors tr").length <= 1) {
+                    $("#price_update_errors").replaceWith($("<p>No failed price downloads are available.</p>"));
                 }
             }
         });
     });
+
+    $("#update_all_progress_bar").progressbar({ value: 25 });
 
     // Click event for Select All
     $("#select_all").click(function (e) {

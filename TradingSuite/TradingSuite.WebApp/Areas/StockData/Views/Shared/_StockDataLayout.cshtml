@@ -12,9 +12,9 @@
     <div id="group_container">
         <div id="group_menu">
             <h3>Menu</h3>
-            <p>@Html.ActionLink("Update Prices from Web", string.Empty, string.Empty)</p>
-            <p>@Html.ActionLink("Manage Tickers List", string.Empty, string.Empty)</p>
-            <p>@Html.ActionLink("Excluded Tickers", string.Empty, string.Empty)</p>
+            <p>@Html.ActionLink("Update Prices from Web", MVC.StockData.UpdatePrices.ActionNames.Index, MVC.StockData.UpdatePrices.Name)</p>
+            <p>@Html.ActionLink("Manage Stock List", MVC.StockData.ManageStocks.ActionNames.Index, MVC.StockData.ManageStocks.Name)</p>
+            <p>@Html.ActionLink("Excluded Stocks", string.Empty, string.Empty)</p>
         </div>
         <div id="page_content">
             @this.RenderSection("PageContent")

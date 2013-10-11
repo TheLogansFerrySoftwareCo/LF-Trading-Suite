@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="TickerErrorViewModel.cs" company="The Logans Ferry Software Co.">
+// <copyright file="DownloadErrorViewModel.cs" company="The Logans Ferry Software Co.">
 //   Copyright 2013, The Logans Ferry Software Co. 
 // </copyright>
 // <license>  
@@ -31,13 +31,13 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Models
         public string Ticker { get; set; }
 
         /// <summary>
-        /// Gets or sets the error message describing the error that occurred during the ticker's last download.
+        /// Gets or sets the error message describing the error that occurred during the stock's last price download.
         /// An empty string indicates that no error occurred during the last download.
         /// </summary>
         public string ErrorMessage { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether the ticker is excluded from price-update operations.
+        /// Gets or sets a value indicating whether the stock is excluded from price-update operations.
         /// </summary>
         public bool IsExcluded { get; set; }
     }

@@ -28,9 +28,9 @@ namespace LogansFerry.TradingSuite.Repositories
     public interface IReadOnlyPriceHistoryRepository
     {
         /// <summary>
-        /// Gets the date of the most recent price history for the specified ticker.
+        /// Gets the date of the most recent price history for the specified stock.
         /// </summary>
-        /// <param name="ticker">The ticker.</param>
+        /// <param name="ticker">The stock's ticker.</param>
         /// <returns>
         /// The date of the ticker's most recent price history entry.
         /// </returns>
