@@ -20,13 +20,23 @@
 
 namespace LogansFerry.TradingSuite.Repositories
 {
-    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// A read-only repository of stock data.
     /// </summary>
     public interface IReadOnlyStockRepository
     {
+        /// <summary>
+        /// Returns queryable collection of all stocks from the repository.
+        /// </summary>
+        /// <returns>
+        /// A queryable collection of all stock from the repository.
+        /// </returns>
+        IQueryable<Stock> All();
+
         /// <summary>
         /// Gets a stock by the specified ticker.
         /// </summary>

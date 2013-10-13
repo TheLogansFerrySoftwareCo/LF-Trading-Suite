@@ -1,0 +1,38 @@
+﻿@using MvcContrib.Pagination
+@using MvcContrib.UI.Grid
+@using MvcContrib.UI.Pager
+@model IEnumerable<LogansFerry.TradingSuite.Stock>
+@{
+    Layout = MVC.StockData.Shared.Views._StockDataLayout;
+}
+
+@section head
+{
+    <script type="text/javascript" src="~/Scripts/jquery-2.0.3.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-ui-1.10.3.js"></script>
+    <script type="text/javascript" src="~/Scripts/checkboxes.js"></script>
+}
+
+@section PageContent
+{
+    <h3>Manage Stock List</h3>
+    
+    <div id ="stock_table">
+        @{
+            if (this.Model.Any())
+            {
+                @Html.Grid(this.Model).Columns(column =>
+                    {
+                        column.For(stock => stock.Ticker);
+                        column.For(stock => stock.CompanyName);
+                        column.For(stock => Html.CheckBoxFor(m => stock.IsExcluded, new { value = stock.Ticker })).Named("Is Excluded");
+                    })
+                @Html.Pager((IPagination)this.Model)
+            }
+            else
+            {
+                <p>No stocks are available to display.</p>
+            }
+        }
+    </div>
+}

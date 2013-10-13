@@ -121,6 +121,8 @@
       <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\StockData\Controllers\ManageStocksController.cs" />
+    <Compile Include="Areas\StockData\Models\StockListItemViewModel.cs" />
     <Compile Include="Areas\StockData\StockDataAreaRegistration.cs" />
     <Compile Include="Areas\StockData\Controllers\UpdatePricesController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
@@ -139,6 +141,9 @@
     <Compile Include="SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="StockData.ManageStocksController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="StockData.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -152,8 +157,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\StockData\Scripts\TickerUpdateErrors.js" />
-    <Content Include="Areas\StockData\Scripts\TickerUpdateAll.js" />
+    <Content Include="Areas\StockData\Scripts\UpdatePrices.js" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -241,6 +245,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Areas\StockData\Views\Web.config" />
+    <Content Include="Areas\StockData\Views\ManageStocks\Index.cshtml" />
     <None Include="Scripts\jquery-2.0.3.min.map" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

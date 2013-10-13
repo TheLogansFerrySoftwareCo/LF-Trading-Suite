@@ -21,11 +21,14 @@
 namespace LogansFerry.TradingSuite.Repositories
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// A read-only stock repository that uses NHibernate to access the data store.
     /// </summary>
-    public class ReadOnlyStockRepository : IReadOnlyStockRepository
+    public class ReadOnlyStockRepository : IReadOnlyStockRepository, IDisposable
     {
         /// <summary>
         /// The read-only repository encapsulated by this class.
@@ -47,6 +50,17 @@ namespace LogansFerry.TradingSuite.Repositories
         }
 
         /// <summary>
+        /// Returns queryable collection of all stocks from the repository.
+        /// </summary>
+        /// <returns>
+        /// A queryable collection of all stock from the repository.
+        /// </returns>
+        public IQueryable<Stock> All()
+        {
+            return this.repository.All();
+        }
+
+        /// <summary>
         /// Gets a stock by the specified ticker.
         /// </summary>
         /// <param name="ticker">The ticker to use as a selection criteria.</param>
@@ -62,6 +76,26 @@ namespace LogansFerry.TradingSuite.Repositories
             catch (Exception)
             {
                 return null;
+            }
+        }
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (this.repository != null)
+                {
+                    this.repository.Dispose();
+                }
             }
         }
     }

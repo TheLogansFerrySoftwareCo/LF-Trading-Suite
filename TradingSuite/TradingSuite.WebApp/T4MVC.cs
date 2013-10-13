@@ -35,6 +35,7 @@ namespace T4MVC
     public class StockDataClass
     {
         public readonly string Name = "StockData";
+        public LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers.ManageStocksController ManageStocks = new LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers.T4MVC_ManageStocksController();
         public LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers.UpdatePricesController UpdatePrices = new LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers.T4MVC_UpdatePricesController();
         public T4MVC.StockData.SharedController Shared = new T4MVC.StockData.SharedController();
     }
