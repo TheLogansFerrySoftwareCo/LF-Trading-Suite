@@ -1,6 +1,7 @@
 ﻿$(document).ready(function() {
 
-    // Update the Is Excluded flag of a selected stock when the user changes the Is Excluded check box.
+    // Checkbox_Changed
+    // Invoke the Update Is Excluded controller action via AJAX.
     $("input[name='Value.IsExcluded']").change(function () {
         var selectionJson = { ticker: $(this).val(), isExcluded: $(this).is(":checked") };
 
@@ -14,6 +15,21 @@
                 if (!data) {
                     alert('Error updating the selected Is Excluded flag.');
                 }
+            }
+        });
+    });
+
+    // UpdateButton_Click
+    // Invoke the Update Stocks controller action via AJAX.
+    $("#updateButton").click(function () {
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: '/StockData/ManageStocks/UpdateStocks',
+            dataType: "json",
+            success: function (data) {
+                alert(data + " stocks were added.");
+                window.location = '/StockData/ManageStocks';
             }
         });
     });

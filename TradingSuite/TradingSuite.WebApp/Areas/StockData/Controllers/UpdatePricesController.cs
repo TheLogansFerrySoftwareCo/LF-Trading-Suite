@@ -30,7 +30,7 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
     using LogansFerry.TradingSuite.WebApp.Areas.StockData.Models;
 
     /// <summary>
-    /// Home controller class for the "Database Management" area of the application.
+    /// Home controller class for the "Stock Data" area of the application.
     /// </summary>
     public partial class UpdatePricesController : Controller
     {

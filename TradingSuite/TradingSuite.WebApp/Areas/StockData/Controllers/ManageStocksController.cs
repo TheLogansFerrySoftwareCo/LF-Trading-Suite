@@ -22,10 +22,14 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
 {
     using System.Web.Mvc;
 
+    using LogansFerry.TradingSuite.DataFetchers.StockList;
     using LogansFerry.TradingSuite.Repositories;
     
     using MvcContrib.Pagination;
 
+    /// <summary>
+    /// Controller for the Manage Stock page within the Stock Data area.
+    /// </summary>
     public partial class ManageStocksController : Controller
     {
         /// <summary>
@@ -34,22 +38,48 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
         private readonly IStockRepository stockRepository;
 
         /// <summary>
+        /// The utility that will download a list of stocks from the web.
+        /// </summary>
+        private readonly IStockListFetcher stockListFetcher;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ManageStocksController"/> class.
         /// </summary>
         /// <param name="stockRepository">The stock repository.</param>
+        /// <param name="stockListFetcher">The stock list fetcher.</param>
 // ReSharper disable UnusedMember.Global -- (This constructor is used by StructureMap.)
-        public ManageStocksController(IStockRepository stockRepository)
+        public ManageStocksController(IStockRepository stockRepository, IStockListFetcher stockListFetcher)
 // ReSharper restore UnusedMember.Global
         {
             this.stockRepository = stockRepository;
+            this.stockListFetcher = stockListFetcher;
         }
-        //
-        // GET: /StockData/ManageStocks/
 
+        /// <summary>
+        /// Action for the Index page.  Displays a paginated list of stocks from the DB.
+        /// </summary>
+        /// <param name="page">The page number of paginated stock data to display.</param>
+        /// <returns>
+        /// The Index view.
+        /// </returns>
         public virtual ActionResult Index(int? page)
         {
             var stocks = this.stockRepository.All().AsPagination(page ?? 1, 100);
-            return View(stocks);
+            return this.View(stocks);
+        }
+
+        /// <summary>
+        /// An AJAX action that will update the database with a current list of stocks.
+        /// </summary>
+        /// <returns>
+        /// The number of stocks added during the update operation.
+        /// </returns>
+        [HttpPost]
+        public virtual JsonResult UpdateStocks()
+        {
+            var stocksList = this.stockListFetcher.FetchStockList();
+            var numUpdated = this.stockRepository.TryAddNewStocks(stocksList);
+            return this.Json(numUpdated, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

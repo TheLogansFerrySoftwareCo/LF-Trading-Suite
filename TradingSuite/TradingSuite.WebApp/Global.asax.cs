@@ -26,11 +26,14 @@ namespace LogansFerry.TradingSuite.WebApp
     using System.Web.Optimization;
     using System.Web.Routing;
 
+    using AutoMapper.Impl;
+
     using FluentNHibernate.Cfg;
     using FluentNHibernate.Cfg.Db;
 
     using log4net;
 
+    using LogansFerry.TradingSuite.DataFetchers.StockList;
     using LogansFerry.TradingSuite.Repositories;
 
     using NHibernate;
@@ -122,6 +125,12 @@ namespace LogansFerry.TradingSuite.WebApp
             ObjectFactory.Configure(cfg => cfg.For<IRepository<Stock>>().Use<NHibernateRepository<Stock>>());
             ObjectFactory.Configure(cfg => cfg.For<IReadOnlyStockRepository>().Use<ReadOnlyStockRepository>());
             ObjectFactory.Configure(cfg => cfg.For<IStockRepository>().Use<StockRepository>());
+
+            // Stock data fetchers
+            var stockListCvsParser = new StockListCsvParser("Symbol", "Name");
+            ObjectFactory.Configure(cfg => cfg.For<IStockListCsvParser>().Use(stockListCvsParser));
+            ObjectFactory.Configure(cfg => cfg.For<IStockListCsvDownloader>().Use<NasdaqDotComCsvDownloader>());
+            ObjectFactory.Configure(cfg => cfg.For<IStockListFetcher>().Use<CsvStockListFetcher>());
         }
     }
 }

@@ -276,6 +276,17 @@ input[type="submit"]
 	cursor: pointer;
 }
 
+input[type="button"]
+{
+	background-image: url('/Images/ButtonBack.gif');
+	background-repeat: repeat-x;
+	border: 1px solid #3C80DB;
+	color: #283B56;
+	cursor: pointer;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
 /* TABLE
 ----------------------------------------------------------*/
 

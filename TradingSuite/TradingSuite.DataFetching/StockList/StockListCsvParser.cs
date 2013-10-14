@@ -69,7 +69,7 @@ namespace LogansFerry.TradingSuite.DataFetchers.StockList
                 throw new DataFetchFailureException("The provided CSV data does not have the minimum number of rows.  Data: " + csvData);
             }
 
-            var headerFields = csvLines[0].Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var headerFields = csvLines[0].Replace("\"", string.Empty).Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             
             var tickerIndex = GetColumnIndex(headerFields, this.tickerColumnName);
             if (tickerIndex < 0)

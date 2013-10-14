@@ -70,6 +70,7 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string UpdateStocks = "UpdateStocks";
             public readonly string UpdateIsExcluded = "UpdateIsExcluded";
         }
 
@@ -77,6 +78,7 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string UpdateStocks = "UpdateStocks";
             public const string UpdateIsExcluded = "UpdateIsExcluded";
         }
 
@@ -126,6 +128,15 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
             IndexOverride(callInfo, page);
+            return callInfo;
+        }
+
+        partial void UpdateStocksOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
+
+        public override System.Web.Mvc.JsonResult UpdateStocks()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.UpdateStocks);
+            UpdateStocksOverride(callInfo);
             return callInfo;
         }
 

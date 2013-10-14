@@ -290,6 +290,10 @@
       <Project>{5FC7AD0E-146B-45A7-A4AD-60A83A01424D}</Project>
       <Name>TradingSuite.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TradingSuite.DataFetching\TradingSuite.DataFetchers.csproj">
+      <Project>{1DFFBEFE-AE01-4C3F-AACE-190711561BA9}</Project>
+      <Name>TradingSuite.DataFetchers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TradingSuite.NHibernate\TradingSuite.NHibernate.csproj">
       <Project>{1332C6D3-E907-44FD-B449-1B514B99F697}</Project>
       <Name>TradingSuite.NHibernate</Name>
