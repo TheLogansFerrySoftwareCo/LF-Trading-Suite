@@ -31,14 +31,14 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
         /// <summary>
         /// The repository that will retrieve information about stocks.
         /// </summary>
-        private readonly IReadOnlyStockRepository stockRepository;
+        private readonly IStockRepository stockRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManageStocksController"/> class.
         /// </summary>
         /// <param name="stockRepository">The stock repository.</param>
 // ReSharper disable UnusedMember.Global -- (This constructor is used by StructureMap.)
-        public ManageStocksController(IReadOnlyStockRepository stockRepository)
+        public ManageStocksController(IStockRepository stockRepository)
 // ReSharper restore UnusedMember.Global
         {
             this.stockRepository = stockRepository;
@@ -52,5 +52,23 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
             return View(stocks);
         }
 
+        /// <summary>
+        /// An action that will flag selected stocks as excluded.
+        /// </summary>
+        /// <param name="ticker">The ticker of the stock to update.</param>
+        /// <param name="isExcluded">The new "Is Excluded" value.</param>
+        /// <returns>
+        /// The status of the update operation.
+        /// </returns>
+        [HttpPost]
+        public virtual JsonResult UpdateIsExcluded(string ticker, bool isExcluded)
+        {
+            if (string.IsNullOrEmpty(ticker))
+            {
+                return this.Json(null);
+            }
+
+            return this.Json(this.stockRepository.UpdateIsExcludedFlag(ticker, isExcluded), JsonRequestBehavior.AllowGet);
+        }
     }
 }

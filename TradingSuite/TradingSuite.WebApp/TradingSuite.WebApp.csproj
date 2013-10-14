@@ -157,6 +157,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\StockData\Scripts\ManageStocks.js" />
     <Content Include="Areas\StockData\Scripts\UpdatePrices.js" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

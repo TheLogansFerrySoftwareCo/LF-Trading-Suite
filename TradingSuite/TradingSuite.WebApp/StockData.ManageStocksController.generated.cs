@@ -47,6 +47,12 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult UpdateIsExcluded()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.UpdateIsExcluded);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ManageStocksController Actions { get { return MVC.StockData.ManageStocks; } }
@@ -64,12 +70,14 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string UpdateIsExcluded = "UpdateIsExcluded";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string UpdateIsExcluded = "UpdateIsExcluded";
         }
 
 
@@ -79,7 +87,16 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Index
         {
-            public readonly string pageNum = "pageNum";
+            public readonly string page = "page";
+        }
+        static readonly ActionParamsClass_UpdateIsExcluded s_params_UpdateIsExcluded = new ActionParamsClass_UpdateIsExcluded();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UpdateIsExcluded UpdateIsExcludedParams { get { return s_params_UpdateIsExcluded; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UpdateIsExcluded
+        {
+            public readonly string ticker = "ticker";
+            public readonly string isExcluded = "isExcluded";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -102,13 +119,24 @@ namespace LogansFerry.TradingSuite.WebApp.Areas.StockData.Controllers
     {
         public T4MVC_ManageStocksController() : base(Dummy.Instance) { }
 
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? pageNum);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? page);
 
-        public override System.Web.Mvc.ActionResult Index(int? pageNum)
+        public override System.Web.Mvc.ActionResult Index(int? page)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pageNum", pageNum);
-            IndexOverride(callInfo, pageNum);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
+            IndexOverride(callInfo, page);
+            return callInfo;
+        }
+
+        partial void UpdateIsExcludedOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string ticker, bool isExcluded);
+
+        public override System.Web.Mvc.JsonResult UpdateIsExcluded(string ticker, bool isExcluded)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.UpdateIsExcluded);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ticker", ticker);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "isExcluded", isExcluded);
+            UpdateIsExcludedOverride(callInfo, ticker, isExcluded);
             return callInfo;
         }
 
