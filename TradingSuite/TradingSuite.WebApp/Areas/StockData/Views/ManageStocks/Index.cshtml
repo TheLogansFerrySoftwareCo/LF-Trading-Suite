@@ -10,6 +10,7 @@
 {
     <script type="text/javascript" src="~/Scripts/jquery-2.0.3.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery-ui-1.10.3.js"></script>
+    <script type="text/javascript" src="~/Areas/StockData/Scripts/BlockUI.js"></script>
     <script type="text/javascript" src="~/Areas/StockData/Scripts/ManageStocks.js"></script>
     <script type="text/javascript" src="~/Scripts/checkboxes.js"></script>
 }
@@ -17,7 +18,7 @@
 @section PageContent
 {
     <h3>Manage Stock List</h3>
-    <input type="button" id="updateButton" value="Update" />
+    <input type="button" id="updateButton" value="Update from Web" />
     <div id ="stock_table">
         @{
             if (this.Model.Any())

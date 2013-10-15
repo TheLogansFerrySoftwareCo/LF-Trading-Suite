@@ -157,6 +157,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\StockData\Scripts\BlockUI.js" />
     <Content Include="Areas\StockData\Scripts\ManageStocks.js" />
     <Content Include="Areas\StockData\Scripts\UpdatePrices.js" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -226,6 +227,7 @@
     <Content Include="Images\Background.jpg" />
     <Content Include="Images\BannerBottomEdge.gif" />
     <Content Include="Images\BannerTopEdge.gif" />
+    <Content Include="Images\busy.gif" />
     <Content Include="Images\ButtonBack.gif" />
     <Content Include="Images\Error.png" />
     <Content Include="Images\menuBack.gif" />
